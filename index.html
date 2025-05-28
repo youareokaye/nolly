@@ -18,7 +18,7 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#home">홈</a></li>
-                <li><a href="#about">운영사 소개</a></li>
+                <li><a href="https://www.nolly.life/introduction" target="_blank">운영사 소개</a></li>
                 <li><a href="#apply">신청하기</a></li>
                 <li><a href="#proposal">제안서 받아보기</a></li>
             </ul>
@@ -107,7 +107,7 @@
 
     <!-- About Section -->
     <section class="about" id="about">
-        <h2>액티비티 큐레이션 복지몰 놀리가 까다롭게 골라 드립니다</h2>
+        <h2>액티비티 큐레이션 복지몰 놀리가<br> 까다롭게 골라 드립니다</h2>
         <div class="about-cards">
             <div class="about-card">
                 <img src="img/1day.png" alt="퇴근 후 상품" class="about-card-img">
@@ -120,6 +120,34 @@
             <div class="about-card">
                 <img src="img/퇴근후.jpg" alt="특별한 날 1DAY 워크숍" class="about-card-img">
                 <h3>특별한 날 1DAY 워크숍</h3>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Process Section -->
+    <section class="process-section">
+        <h2 class="features-title">프로그램 운영(안)</h2>
+        <p class="process-subtitle">계약은 한번에, 홍보 부터 사후 보고까지 해결해 드립니다.</p>
+        <div class="container">
+            <!-- 첫 번째 이미지 단독 배치 -->
+            <div class="main-process">
+                <img src="img/infographic.png" alt="프로세스 인포그래픽" class="main-process-img">
+            </div>
+            
+            <!-- 나머지 3개 이미지 flex 정렬 -->
+            <div class="sub-processes">
+                <div class="sub-process-item">
+                    <img src="/img/poster.png" alt="포스터" class="sub-process-img">
+                    <h3 class="sub-process-title">프로그램 홍보용 이미지</h3>
+                </div>
+                <div class="sub-process-item">
+                    <img src="img/option.png" alt="수료증" class="sub-process-img">
+                    <h3 class="sub-process-title">단계 2: 수료증 발급</h3>
+                </div>
+                <div class="sub-process-item">
+                    <img src="img/report.png" alt="보고서" class="sub-process-img">
+                    <h3 class="sub-process-title">단계 3: 보고서 작성</h3>
+                </div>
             </div>
         </div>
     </section>
@@ -144,6 +172,208 @@
         </div>
     </footer>
 
+    <!-- Fixed CTA Button -->
+    <div class="fixed-cta">
+        <a href="https://drive.google.com/file/d/1cQW5yxiJ7z3D4EdBy9CXIHFVSu0DThZU/view?pli=1" target="_blank" class="cta-button">제안서 바로 보기</a>
+    </div>
+
     <script src="script.js"></script>
+    <script>
+        // Fixed CTA 버튼 스크롤 제어
+        const fixedCta = document.querySelector('.fixed-cta');
+        const heroSection = document.querySelector('.hero');
+        const footer = document.querySelector('footer');
+        
+        function handleCtaVisibility() {
+            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+            const footerTop = footer.offsetTop;
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            // 히어로 섹션을 지나고 footer가 화면에 나타나기 전까지 CTA 버튼 표시
+            if (scrollY > heroBottom && scrollY + windowHeight < footerTop + 100) {
+                fixedCta.classList.add('show');
+            } else {
+                fixedCta.classList.remove('show');
+            }
+        }
+        
+        // 스크롤 이벤트 리스너
+        window.addEventListener('scroll', handleCtaVisibility);
+        
+        // 페이지 로드 시 초기 상태 설정
+        handleCtaVisibility();
+    </script>
 </body>
-</html> 
+</html>
+
+<style>
+.process-section {
+    padding: 60px 0;
+}
+
+.process-section .features-title {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.process-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+
+/* Fixed CTA Button */
+.fixed-cta {
+    position: fixed;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    padding: 0 20px;
+}
+
+.fixed-cta.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.fixed-cta .cta-button {
+    display: block;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 16px 32px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, #333 0%, #000 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.fixed-cta .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+    background: linear-gradient(135deg, #444 0%, #222 100%);
+}
+
+/* About 섹션 제목 행간 조정 */
+.about h2 {
+    line-height: 1.2;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 첫 번째 이미지 단독 배치 */
+.main-process {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.main-process-img {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 나머지 3개 이미지 flex 정렬 */
+.sub-processes {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.sub-process-item {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-process-img {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: #f8f9fa;
+}
+
+.sub-process-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.4;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .process-section .features-title {
+        font-size: 2rem;
+    }
+    
+    .process-subtitle {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    
+    .fixed-cta {
+        bottom: 20px;
+        padding: 0 15px;
+    }
+    
+    .fixed-cta .cta-button {
+        font-size: 1.1rem;
+        padding: 14px 28px;
+        max-width: 100%;
+    }
+    
+    .about h2 {
+        line-height: 1.1;
+    }
+    
+    .main-process-img {
+        max-width: 100%;
+    }
+    
+    .sub-processes {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .sub-process-item {
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    .sub-process-img {
+        height: 180px;
+    }
+    
+    .sub-process-title {
+        font-size: 14px;
+    }
+}
+</style> 
