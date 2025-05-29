@@ -138,7 +138,7 @@
             <div class="sub-processes">
                 <div class="sub-process-item">
                     <img src="img/poster.png" alt="포스터" class="sub-process-img">
-                    <h3 class="sub-process-title">프로그램 홍보용 이미지</h3>
+                    <h3 class="sub-process-title">1. 프로그램 홍보용 이미지</h3>
                 </div>
                 <div class="sub-process-item">
                     <img src="img/option.png" alt="수료증" class="sub-process-img">
@@ -155,9 +155,24 @@
     <!-- Contact Section -->
     <section class="contact" id="apply">
         <h2>문의하기</h2>
-        <div class="contact-info">
-            <p>고객센터: 문의하기 | 이메일 (CS@nolly.life)</p>
-            <p>운영시간: 평일/주말 10:00 ~ 17:00 (휴식 12:00 ~ 13:00)</p>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>고객상담</h3>
+                <p>평일 10:00 ~ 17:00</p>
+                <p>점심시간 12:00 ~ 13:00</p>
+                <p class="contact-phone"></p>
+            </div>
+            <div class="contact-form-section">
+                <h3>비즈니스 문의</h3>
+                <form class="contact-form" id="contact-form">
+                    <input type="text" name="from_name" placeholder="이름" required>
+                    <input type="email" name="from_email" placeholder="이메일" required>
+                    <input type="text" name="subject" placeholder="제목" required>
+                    <textarea name="message" placeholder="메시지" rows="5" required></textarea>
+                    <button type="submit" class="submit-button">문의하기</button>
+                </form>
+                <div id="form-status" class="form-status"></div>
+            </div>
         </div>
     </section>
 
@@ -178,6 +193,7 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
         // Fixed CTA 버튼 스크롤 제어
         const fixedCta = document.querySelector('.fixed-cta');
@@ -203,6 +219,44 @@
         
         // 페이지 로드 시 초기 상태 설정
         handleCtaVisibility();
+
+        // EmailJS 초기화
+        emailjs.init("4U-kWWrEspBqY76yy");
+        
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const submitButton = this.querySelector('.submit-button');
+            const statusDiv = document.getElementById('form-status');
+            
+            // 버튼 상태 변경
+            submitButton.textContent = '전송 중...';
+            submitButton.disabled = true;
+            
+            // EmailJS로 이메일 전송
+            emailjs.sendForm('service_ltp5t21', 'template_vcmp7rd', this)
+                .then(function() {
+                    statusDiv.innerHTML = '<p class="success-message">문의가 성공적으로 전송되었습니다!</p>';
+                    document.getElementById('contact-form').reset();
+                    submitButton.textContent = '문의하기';
+                    submitButton.disabled = false;
+                    
+                    // 3초 후 성공 메시지 제거
+                    setTimeout(() => {
+                        statusDiv.innerHTML = '';
+                    }, 3000);
+                }, function(error) {
+                    statusDiv.innerHTML = '<p class="error-message">전송에 실패했습니다. 다시 시도해주세요.</p>';
+                    submitButton.textContent = '문의하기';
+                    submitButton.disabled = false;
+                    console.error('EmailJS error:', error);
+                    
+                    // 5초 후 에러 메시지 제거
+                    setTimeout(() => {
+                        statusDiv.innerHTML = '';
+                    }, 5000);
+                });
+        });
     </script>
 </body>
 </html>
@@ -375,5 +429,149 @@
     .sub-process-title {
         font-size: 14px;
     }
+}
+
+/* Contact Section Styles */
+.contact {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.contact h2 {
+    text-align: center;
+    margin-bottom: 60px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.contact-info h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.contact-phone {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333 !important;
+    margin-top: 15px;
+}
+
+.contact-form-section h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #333;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.submit-button {
+    padding: 15px 30px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: flex-start;
+}
+
+.submit-button:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .contact h2 {
+        font-size: 2rem;
+        margin-bottom: 40px;
+    }
+}
+
+.form-status {
+    margin-top: 20px;
+}
+
+.success-message {
+    color: #28a745;
+    font-weight: 600;
+    padding: 10px;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    margin: 0;
+}
+
+.error-message {
+    color: #dc3545;
+    font-weight: 600;
+    padding: 10px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin: 0;
+}
+
+.submit-button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.submit-button:disabled:hover {
+    background-color: #6c757d;
+    transform: none;
 }
 </style> 
