@@ -229,13 +229,22 @@
             const submitButton = this.querySelector('.submit-button');
             const statusDiv = document.getElementById('form-status');
             
+            // 디버깅을 위한 폼 데이터 확인
+            const formData = new FormData(this);
+            const templateParams = {};
+            for (let [key, value] of formData.entries()) {
+                templateParams[key] = value;
+            }
+            console.log('Template Params:', templateParams);
+            
             // 버튼 상태 변경
             submitButton.textContent = '전송 중...';
             submitButton.disabled = true;
             
             // EmailJS로 이메일 전송
-            emailjs.sendForm('service_ltp5t21', 'template_vcmp7rd', this)
-                .then(function() {
+            emailjs.send('service_ltp5t21', 'template_vcmp7rd', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
                     statusDiv.innerHTML = '<p class="success-message">문의가 성공적으로 전송되었습니다!</p>';
                     document.getElementById('contact-form').reset();
                     submitButton.textContent = '문의하기';
@@ -246,10 +255,10 @@
                         statusDiv.innerHTML = '';
                     }, 3000);
                 }, function(error) {
+                    console.error('FAILED...', error);
                     statusDiv.innerHTML = '<p class="error-message">전송에 실패했습니다. 다시 시도해주세요.</p>';
                     submitButton.textContent = '문의하기';
                     submitButton.disabled = false;
-                    console.error('EmailJS error:', error);
                     
                     // 5초 후 에러 메시지 제거
                     setTimeout(() => {
