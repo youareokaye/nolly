@@ -58,24 +58,24 @@ document.querySelectorAll('section').forEach(section => {
 });
 
 // Mobile menu toggle (if needed)
-const createMobileMenu = () => {
-    const nav = document.querySelector('.nav-container');
-    const mobileMenuBtn = document.createElement('button');
-    mobileMenuBtn.classList.add('mobile-menu-btn');
-    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-    
-    nav.appendChild(mobileMenuBtn);
-    
-    mobileMenuBtn.addEventListener('click', () => {
-        const navLinks = document.querySelector('.nav-links');
-        navLinks.classList.toggle('show');
-    });
-};
+// const createMobileMenu = () => {
+//     const nav = document.querySelector('.nav-container');
+//     const mobileMenuBtn = document.createElement('button');
+//     mobileMenuBtn.classList.add('mobile-menu-btn');
+//     mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+//     
+//     nav.appendChild(mobileMenuBtn);
+//     
+//     mobileMenuBtn.addEventListener('click', () => {
+//         const navLinks = document.querySelector('.nav-links');
+//         navLinks.classList.toggle('show');
+//     });
+// };
 
 // Initialize mobile menu if screen width is small
-if (window.innerWidth <= 768) {
-    createMobileMenu();
-}
+// if (window.innerWidth <= 768) {
+//     createMobileMenu();
+// }
 
 // Carousel functionality
 const carousel = {

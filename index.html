@@ -16,11 +16,16 @@
                     <img src="img/logo.png" alt="Nolly Workshop Logo">
                 </a>
             </div>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="#home">홈</a></li>
                 <li><a href="https://www.nolly.life/introduction" target="_blank">운영사 소개</a></li>
                 <li><a href="#apply">신청하기</a></li>
-                <li><a href="https://drive.google.com/file/d/1cQW5yxiJ7z3D4EdBy9CXIHFVSu0DThZU/view?pli=1" target="_blank">제안서 받아보기</a></li>
+                <li><a href="https://drive.google.com/file/d/1ySDmNmxzQCwZ7Ezf3cQG_KRUbqAnYVH6/view" target="_blank">제안서 받아보기</a></li>
             </ul>
         </nav>
     </header>
@@ -30,6 +35,13 @@
         <div class="carousel-container">
             <div class="carousel">
                 <div class="carousel-slide active">
+                    <img src="img/flowerclass.png" alt="Nolly Workshop 3">
+                    <div class="hero-content">
+                        <h1>체험으로 만드는 특별한 경험</h1>
+                        <p>직원들의 만족도를 높이는 다양한 체험 프로그램</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
                     <img src="img/linedance.png" alt="Nolly Workshop 1">
                     <div class="hero-content">
                         <h1>놀리와 함께하면 고민 끝!</h1>
@@ -41,13 +53,6 @@
                     <div class="hero-content">
                         <h1>맞춤형 워크숍 프로그램</h1>
                         <p>기업과 단체를 위한 프리미엄 워크숍을 제공합니다</p>
-                    </div>
-                </div>
-                <div class="carousel-slide">
-                    <img src="img/flowerclass.png" alt="Nolly Workshop 3">
-                    <div class="hero-content">
-                        <h1>체험으로 만드는 특별한 경험</h1>
-                        <p>직원들의 만족도를 높이는 다양한 체험 프로그램</p>
                     </div>
                 </div>
                 <div class="carousel-slide">
@@ -88,26 +93,16 @@
                 <p>큐레이션을 통해 까다롭게 고른 프로그램을 제안합니다</p>
             </div>
             <div class="feature-item">
-                <img src="img/icons/만족도 극대화.png" alt="보고서 제공" class="feature-icon">
-                <h3>보고서 제공</h3>
-                <p>만족도 설문결과, 보고서까지 놀리가 제공해 드립니다</p>
-            </div>
-            <div class="feature-item">
                 <img src="img/icons/원하는 비용에 자유롭게.png" alt="예산에 맞춰" class="feature-icon">
                 <h3>예산에 맞춰</h3>
                 <p>실속 있는 프로그램으로 최대한의 만족도를 이끌어냅니다</p>
-            </div>
-            <div class="feature-item">
-                <img src="img/icons/만족도 극대화.png" alt="만족도 극대화" class="feature-icon">
-                <h3>만족도 극대화</h3>
-                <p>새로운 경험으로 구성원들의 몰입도를 높입니다</p>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
     <section class="about" id="about">
-        <h2>액티비티 큐레이션 복지몰 놀리가<br> 까다롭게 골라 드립니다</h2>
+        <h2 class="about-title">까다롭게 고른 <span class="mobile-break">유니크한 체험</span></h2>
         <div class="about-cards">
             <div class="about-card">
                 <img src="img/1day.png" alt="퇴근 후 상품" class="about-card-img">
@@ -154,19 +149,21 @@
 
     <!-- Contact Section -->
     <section class="contact" id="apply">
-        <h2>문의하기</h2>
+        <h2>Contact</h2>
         <div class="contact-container">
-            <div class="contact-info">
+            <!-- <div class="contact-info">
                 <h3>고객상담</h3>
                 <p>평일 10:00 ~ 17:00</p>
                 <p>점심시간 12:00 ~ 13:00</p>
                 <p class="contact-phone"></p>
-            </div>
+            </div> -->
             <div class="contact-form-section">
-                <h3>비즈니스 문의</h3>
+                <h3>워크숍 문의 및 상담</h3>
+                <p>문의사항을 남겨 주시면 확인 후 담당자가 연락 드립니다.</p>
                 <form class="contact-form" id="contact-form">
                     <input type="text" name="from_name" placeholder="이름" required>
                     <input type="email" name="from_email" placeholder="이메일" required>
+                    <input type="tel" name="phone" placeholder="전화번호" required>
                     <input type="text" name="subject" placeholder="제목" required>
                     <textarea name="message" placeholder="메시지" rows="5" required></textarea>
                     <button type="submit" class="submit-button">문의하기</button>
@@ -179,22 +176,44 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <p>주식회사 놀리 | 사업자등록번호: 744-87-02924</p>
-            <p>통신판매업신고번호: 2023-서울마포-3292</p>
-            <p>개인정보 관리 책임자/대표: 윤하늘</p>
-            <p>서울시 마포구 양화로 120, 로컬스티치 2F</p>
-            <p>연락처: 070-8098-0601</p>
+            <div class="footer-family">
+                <strong>Family site</strong> :
+                <a href="https://www.nolly.life/" target="_blank" rel="noopener">체험형 기업복지 서비스 Nolly</a>
+            </div>
+            <div class="footer-info">
+                <p>운영시간 평일 · 주말 10:00 ~ 17:00 (휴식 12:00 ~ 13:00)</p>
+                <p>제휴 및 기타 문의: <a href="mailto:Contact@nolly.life">Contact@nolly.life</a></p>
+                <p>주식회사 놀리 | 사업자등록번호: 744-87-02924 | 통신판매업신고번호: 2023-서울마포-3292 </p>
+                <p> 개인정보 관리 책임자/대표: 윤하늘 | 서울시 마포구 양화로 120, 로컬스티치 2F | 연락처 : 070-8098-0601</p>
+            </div>
         </div>
     </footer>
 
     <!-- Fixed CTA Button -->
     <div class="fixed-cta">
-        <a href="https://drive.google.com/file/d/1cQW5yxiJ7z3D4EdBy9CXIHFVSu0DThZU/view?pli=1" target="_blank" class="cta-button">제안서 바로 보기</a>
+        <a href="https://drive.google.com/file/d/1ySDmNmxzQCwZ7Ezf3cQG_KRUbqAnYVH6/view" target="_blank" class="cta-button">제안서 받아보기</a>
     </div>
 
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
+        // 모바일 메뉴 토글
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // 메뉴 링크 클릭 시 메뉴 닫기
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
         // Fixed CTA 버튼 스크롤 제어
         const fixedCta = document.querySelector('.fixed-cta');
         const heroSection = document.querySelector('.hero');
@@ -317,7 +336,7 @@
     font-size: 1.2rem;
     font-weight: 700;
     color: white;
-    background: linear-gradient(135deg, #333 0%, #000 100%);
+    background: #fc1c19;
     border: none;
     border-radius: 50px;
     cursor: pointer;
@@ -331,7 +350,7 @@
     transform: translateY(-3px);
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
     text-decoration: none;
-    background: linear-gradient(135deg, #444 0%, #222 100%);
+    background: #ff4b47;
 }
 
 /* About 섹션 제목 행간 조정 */
