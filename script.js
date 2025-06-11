@@ -135,3 +135,77 @@ const carousel = {
 document.addEventListener('DOMContentLoaded', () => {
     carousel.init();
 }); 
+
+
+
+        // 모바일 메뉴 토글
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // 메뉴 링크 클릭 시 메뉴 닫기
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Fixed CTA 버튼 스크롤 제어
+        const fixedCta = document.querySelector('.fixed-cta');
+        const heroSection = document.querySelector('.hero');
+        const footer = document.querySelector('footer');
+        
+        function handleCtaVisibility() {
+            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+            const footerTop = footer.offsetTop;
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            // 히어로 섹션을 지나고 footer가 화면에 나타나기 전까지 CTA 버튼 표시
+            if (scrollY > heroBottom && scrollY + windowHeight < footerTop + 100) {
+                fixedCta.classList.add('show');
+            } else {
+                fixedCta.classList.remove('show');
+            }
+        }
+        
+        // 스크롤 이벤트 리스너
+        window.addEventListener('scroll', handleCtaVisibility);
+        
+        // 페이지 로드 시 초기 상태 설정
+        handleCtaVisibility();
+
+        // EmailJS 초기화
+        emailjs.init("4U-kWWrEspBqY76yy");
+        
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const submitButton = this.querySelector('.submit-button');
+            const statusDiv = document.getElementById('form-status');
+            
+            // 버튼 비활성화 및 로딩 상태 표시
+            submitButton.disabled = true;
+            submitButton.textContent = '전송 중...';
+            
+            // EmailJS를 사용하여 이메일 전송
+            emailjs.sendForm('service_8qkqk8k', 'template_8qkqk8k', this)
+                .then(function() {
+                    statusDiv.textContent = '메시지가 성공적으로 전송되었습니다.';
+                    statusDiv.style.color = 'green';
+                    document.getElementById('contact-form').reset();
+                }, function(error) {
+                    statusDiv.textContent = '메시지 전송에 실패했습니다. 다시 시도해 주세요.';
+                    statusDiv.style.color = 'red';
+                })
+                .finally(function() {
+                    // 버튼 상태 복원
+                    submitButton.disabled = false;
+                    submitButton.textContent = '문의하기';
+                });
+        });

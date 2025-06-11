@@ -79,7 +79,7 @@
         <div class="features-grid">
             <div class="feature-item">
                 <img src="img/icons/한 번에 해결되는 원스톱 운영.png" alt="원스톱 운영" class="feature-icon">
-                <h3>한 번에 해결되는 원스톱 운영</h3>
+                <h3>원스톱 운영</h3>
                 <p>섭외부터 홍보 이미지, 만족도 조사, 보고서까지 한번에</p>
             </div>
             <div class="feature-item">
@@ -150,16 +150,21 @@
     <!-- Contact Section -->
     <section class="contact" id="apply">
         <h2>Contact</h2>
-        <div class="contact-container">
-            <!-- <div class="contact-info">
-                <h3>고객상담</h3>
-                <p>평일 10:00 ~ 17:00</p>
-                <p>점심시간 12:00 ~ 13:00</p>
-                <p class="contact-phone"></p>
-            </div> -->
-            <div class="contact-form-section">
+            <!-- 상단 안내 문구: 맵+폼 위에 전체 너비로 노출 -->
+            <div class="contact-intro">
                 <h3>워크숍 문의 및 상담</h3>
                 <p>문의사항을 남겨 주시면 확인 후 담당자가 연락 드립니다.</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-map">
+                    <iframe
+                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.0476883310835!2d126.91779247714179!3d37.55394022484808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c98db152571d9%3A0xfbb3eb067919e73a!2z7ISc7Jq47Yq567OE7IucIOuniO2PrOq1rCDslpHtmZTroZwgMTIw!5e0!3m2!1sko!2skr!4v1749603022338!5m2!1sko!2skr"
+                         allowfullscreen=""
+                         loading="lazy">
+                    </iframe>
+               </div>
+                      <!-- 오른쪽: 문의하기 폼 -->
+               <div class="contact-form-section">
                 <form class="contact-form" id="contact-form">
                     <input type="text" name="from_name" placeholder="이름" required>
                     <input type="email" name="from_email" placeholder="이메일" required>
@@ -177,8 +182,8 @@
     <footer>
         <div class="footer-content">
             <div class="footer-family">
-                <strong>Family site</strong> :
-                <a href="https://www.nolly.life/" target="_blank" rel="noopener">체험형 기업복지 서비스 Nolly</a>
+                <strong>Family site </strong> 
+                <a href="https://www.nolly.life/" target="_blank" rel="noopener"> 체험형 기업복지 서비스 Nolly</a>
             </div>
             <div class="footer-info">
                 <p>운영시간 평일 · 주말 10:00 ~ 17:00 (휴식 12:00 ~ 13:00)</p>
@@ -197,409 +202,7 @@
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
-        // 모바일 메뉴 토글
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenuBtn.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
 
-        // 메뉴 링크 클릭 시 메뉴 닫기
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenuBtn.classList.remove('active');
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Fixed CTA 버튼 스크롤 제어
-        const fixedCta = document.querySelector('.fixed-cta');
-        const heroSection = document.querySelector('.hero');
-        const footer = document.querySelector('footer');
-        
-        function handleCtaVisibility() {
-            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-            const footerTop = footer.offsetTop;
-            const scrollY = window.scrollY;
-            const windowHeight = window.innerHeight;
-            
-            // 히어로 섹션을 지나고 footer가 화면에 나타나기 전까지 CTA 버튼 표시
-            if (scrollY > heroBottom && scrollY + windowHeight < footerTop + 100) {
-                fixedCta.classList.add('show');
-            } else {
-                fixedCta.classList.remove('show');
-            }
-        }
-        
-        // 스크롤 이벤트 리스너
-        window.addEventListener('scroll', handleCtaVisibility);
-        
-        // 페이지 로드 시 초기 상태 설정
-        handleCtaVisibility();
-
-        // EmailJS 초기화
-        emailjs.init("4U-kWWrEspBqY76yy");
-        
-        document.getElementById('contact-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const submitButton = this.querySelector('.submit-button');
-            const statusDiv = document.getElementById('form-status');
-            
-            // 디버깅을 위한 폼 데이터 확인
-            const formData = new FormData(this);
-            const templateParams = {};
-            for (let [key, value] of formData.entries()) {
-                templateParams[key] = value;
-            }
-            console.log('Template Params:', templateParams);
-            
-            // 버튼 상태 변경
-            submitButton.textContent = '전송 중...';
-            submitButton.disabled = true;
-            
-            // EmailJS로 이메일 전송 (새로운 서비스 ID 사용)
-            emailjs.send('service_1dhw98f', 'template_1ibi9qf', templateParams)
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                    statusDiv.innerHTML = '<p class="success-message">문의가 성공적으로 전송되었습니다!</p>';
-                    document.getElementById('contact-form').reset();
-                    submitButton.textContent = '문의하기';
-                    submitButton.disabled = false;
-                    
-                    // 3초 후 성공 메시지 제거
-                    setTimeout(() => {
-                        statusDiv.innerHTML = '';
-                    }, 3000);
-                }, function(error) {
-                    console.error('FAILED...', error);
-                    statusDiv.innerHTML = '<p class="error-message">전송에 실패했습니다. 다시 시도해주세요.</p>';
-                    submitButton.textContent = '문의하기';
-                    submitButton.disabled = false;
-                    
-                    // 5초 후 에러 메시지 제거
-                    setTimeout(() => {
-                        statusDiv.innerHTML = '';
-                    }, 5000);
-                });
-        });
     </script>
 </body>
 </html>
-
-<style>
-.process-section {
-    padding: 60px 0;
-}
-
-.process-section .features-title {
-    text-align: center;
-    margin-bottom: 15px;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #333;
-}
-
-.process-subtitle {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 40px;
-    font-weight: 400;
-}
-
-/* Fixed CTA Button */
-.fixed-cta {
-    position: fixed;
-    bottom: 30px;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-    padding: 0 20px;
-}
-
-.fixed-cta.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.fixed-cta .cta-button {
-    display: block;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 16px 32px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: white;
-    background: #fc1c19;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-decoration: none;
-    text-align: center;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-}
-
-.fixed-cta .cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
-    text-decoration: none;
-    background: #ff4b47;
-}
-
-/* About 섹션 제목 행간 조정 */
-.about h2 {
-    line-height: 1.2;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* 첫 번째 이미지 단독 배치 */
-.main-process {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.main-process-img {
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-    object-fit: contain;
-}
-
-/* 나머지 3개 이미지 flex 정렬 */
-.sub-processes {
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-    align-items: flex-start;
-}
-
-.sub-process-item {
-    flex: 1;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-}
-
-.sub-process-img {
-    width: 100%;
-    max-width: 300px;
-    height: 200px;
-    object-fit: contain;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    background-color: #f8f9fa;
-}
-
-.sub-process-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
-    line-height: 1.4;
-}
-
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-    .process-section .features-title {
-        font-size: 2rem;
-    }
-    
-    .process-subtitle {
-        font-size: 1rem;
-        margin-bottom: 30px;
-    }
-    
-    .fixed-cta {
-        bottom: 20px;
-        padding: 0 15px;
-    }
-    
-    .fixed-cta .cta-button {
-        font-size: 1.1rem;
-        padding: 14px 28px;
-        max-width: 100%;
-    }
-    
-    .about h2 {
-        line-height: 1.1;
-    }
-    
-    .main-process-img {
-        max-width: 100%;
-    }
-    
-    .sub-processes {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-    
-    .sub-process-item {
-        width: 100%;
-        max-width: 400px;
-    }
-    
-    .sub-process-img {
-        height: 180px;
-    }
-    
-    .sub-process-title {
-        font-size: 14px;
-    }
-}
-
-/* Contact Section Styles */
-.contact {
-    padding: 80px 0;
-    background-color: #f8f9fa;
-}
-
-.contact h2 {
-    text-align: center;
-    margin-bottom: 60px;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #333;
-}
-
-.contact-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: start;
-}
-
-.contact-info h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.contact-info p {
-    font-size: 1.1rem;
-    color: #666;
-    margin-bottom: 10px;
-}
-
-.contact-phone {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #333 !important;
-    margin-top: 15px;
-}
-
-.contact-form-section h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 30px;
-}
-
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.contact-form input,
-.contact-form textarea {
-    padding: 15px;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-    font-family: inherit;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-    outline: none;
-    border-color: #333;
-}
-
-.contact-form textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
-.submit-button {
-    padding: 15px 30px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    align-self: flex-start;
-}
-
-.submit-button:hover {
-    background-color: #555;
-    transform: translateY(-2px);
-}
-
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-    .contact-container {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-    
-    .contact h2 {
-        font-size: 2rem;
-        margin-bottom: 40px;
-    }
-}
-
-.form-status {
-    margin-top: 20px;
-}
-
-.success-message {
-    color: #28a745;
-    font-weight: 600;
-    padding: 10px;
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
-    border-radius: 5px;
-    margin: 0;
-}
-
-.error-message {
-    color: #dc3545;
-    font-weight: 600;
-    padding: 10px;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    border-radius: 5px;
-    margin: 0;
-}
-
-.submit-button:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.submit-button:disabled:hover {
-    background-color: #6c757d;
-    transform: none;
-}
-</style> 
