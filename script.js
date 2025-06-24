@@ -57,26 +57,6 @@ document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
 });
 
-// Mobile menu toggle (if needed)
-// const createMobileMenu = () => {
-//     const nav = document.querySelector('.nav-container');
-//     const mobileMenuBtn = document.createElement('button');
-//     mobileMenuBtn.classList.add('mobile-menu-btn');
-//     mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-//     
-//     nav.appendChild(mobileMenuBtn);
-//     
-//     mobileMenuBtn.addEventListener('click', () => {
-//         const navLinks = document.querySelector('.nav-links');
-//         navLinks.classList.toggle('show');
-//     });
-// };
-
-// Initialize mobile menu if screen width is small
-// if (window.innerWidth <= 768) {
-//     createMobileMenu();
-// }
-
 // Carousel functionality
 const carousel = {
     slides: document.querySelectorAll('.carousel-slide'),
@@ -131,17 +111,16 @@ const carousel = {
     }
 };
 
-// Initialize carousel when DOM is loaded
+// Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize carousel
     carousel.init();
-}); 
-
-
-
-        // 모바일 메뉴 토글
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        
+    
+    // 모바일 메뉴 토글
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileMenuBtn && navLinks) {
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenuBtn.classList.toggle('active');
             navLinks.classList.toggle('active');
@@ -154,12 +133,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 navLinks.classList.remove('active');
             });
         });
+    }
 
-        // Fixed CTA 버튼 스크롤 제어
-        const fixedCta = document.querySelector('.fixed-cta');
-        const heroSection = document.querySelector('.hero');
-        const footer = document.querySelector('footer');
-        
+    // Fixed CTA 버튼 스크롤 제어
+    const fixedCta = document.querySelector('.fixed-cta');
+    const heroSection = document.querySelector('.hero');
+    const footer = document.querySelector('footer');
+    
+    if (fixedCta && heroSection && footer) {
         function handleCtaVisibility() {
             const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
             const footerTop = footer.offsetTop;
@@ -179,33 +160,40 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 페이지 로드 시 초기 상태 설정
         handleCtaVisibility();
+    }
 
-        // EmailJS 초기화
+    // EmailJS 초기화 및 폼 처리
+    if (typeof emailjs !== 'undefined') {
         emailjs.init("4U-kWWrEspBqY76yy");
         
-        document.getElementById('contact-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const submitButton = this.querySelector('.submit-button');
-            const statusDiv = document.getElementById('form-status');
-            
-            // 버튼 비활성화 및 로딩 상태 표시
-            submitButton.disabled = true;
-            submitButton.textContent = '전송 중...';
-            
-            // EmailJS를 사용하여 이메일 전송
-            emailjs.sendForm('service_8qkqk8k', 'template_8qkqk8k', this)
-                .then(function() {
-                    statusDiv.textContent = '메시지가 성공적으로 전송되었습니다.';
-                    statusDiv.style.color = 'green';
-                    document.getElementById('contact-form').reset();
-                }, function(error) {
-                    statusDiv.textContent = '메시지 전송에 실패했습니다. 다시 시도해 주세요.';
-                    statusDiv.style.color = 'red';
-                })
-                .finally(function() {
-                    // 버튼 상태 복원
-                    submitButton.disabled = false;
-                    submitButton.textContent = '문의하기';
-                });
-        });
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const submitButton = this.querySelector('.submit-button');
+                const statusDiv = document.getElementById('form-status');
+                
+                // 버튼 비활성화 및 로딩 상태 표시
+                submitButton.disabled = true;
+                submitButton.textContent = '전송 중...';
+                
+                // EmailJS를 사용하여 이메일 전송
+                emailjs.sendForm('service_8qkqk8k', 'template_8qkqk8k', this)
+                    .then(function() {
+                        statusDiv.textContent = '메시지가 성공적으로 전송되었습니다.';
+                        statusDiv.style.color = 'green';
+                        document.getElementById('contact-form').reset();
+                    }, function(error) {
+                        statusDiv.textContent = '메시지 전송에 실패했습니다. 다시 시도해 주세요.';
+                        statusDiv.style.color = 'red';
+                    })
+                    .finally(function() {
+                        // 버튼 상태 복원
+                        submitButton.disabled = false;
+                        submitButton.textContent = '복지몰 워크숍 문의하기';
+                    });
+            });
+        }
+    }
+});
